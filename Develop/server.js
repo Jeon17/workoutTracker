@@ -1,8 +1,11 @@
 const express = require("express");
 const compression = require("compression");
+let app = express();
 
-const PORT = process.env.PORT || 8080;
-const app = express();
+// require('dotenv/config');
+const connectDB = require("./config/odm.js");
+
+
 
 app.use(compression({ filter: shouldCompress }));
 
@@ -21,10 +24,12 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-const routes = require("./routes/index.js");
+let db = require("./models");
+let routes = require("./routes/index.js");
 
 app.use('/', routes);
+
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:" + PORT);

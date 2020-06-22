@@ -2,10 +2,7 @@ const express = require("express");
 const compression = require("compression");
 let app = express();
 
-// require('dotenv/config');
 const connectDB = require("./config/odm.js");
-
-
 
 app.use(compression({ filter: shouldCompress }));
 

@@ -2,15 +2,15 @@ let express = require('express');
 let router = express.Router();
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 router.get("/exercise", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "exercise.html"));
+  res.sendFile(path.join(__dirname, 'public', 'exercise.html' ));
 });
 
 router.get("/stats", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "stats.html"));
+  res.sendFile(path.join(__dirname, 'public', 'stats.html'));
 });
 
 router.get("/api/workouts", (req, res) => {
@@ -27,10 +27,10 @@ router.get("/api/workouts", (req, res) => {
 
 router.get("/api/workouts/range", (req, res) => {
   db.Workout.find({})
-    .then((dbWorkout) => {
+    .then(dbWorkout => {
       res.json(dbWorkout);
     })
-    .catch((err) => {
+    .catch(err => {
       res.json(err);
     });
 });
@@ -65,4 +65,4 @@ router.post("/api/workouts", (req, res) => {
 });
 
 
-module.exports = router; 
+module.exports = router;

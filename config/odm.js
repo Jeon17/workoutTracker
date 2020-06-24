@@ -1,6 +1,12 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const dbConfig = process.env.MONGODB_URI;
+//Set up default mongoose connection
+let mongoDB = "mongodb://127.0.0.1/my_database";
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+
+//Get the default connection
+let db = mongoose.connection;
+// const dbConfig = process.env.MONGODB_URI;
 
 async function connectDB() {
   await mongoose.connect(

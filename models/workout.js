@@ -1,37 +1,51 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const newSchema = new Schema({
-  string: {
-    type: String,
-    trim: true,
-    required: "String is Required",
+// Creating new schema to let it be routed to MongoDB 
+const newSchema = new Schema(
+    {
+    day: {
+      type: Date,
+      default: Date.now,
+    },
+    exercises: [
+      {
+        type: {
+          type: String,
+          trim: true,
+          required: "Enter exercise type",
+        },
+        name: {
+          type: String,
+          trim: true,
+          required: "Enter exercise name",
+        },
+        duration: {
+          type: Number,
+          required: "Enter exercise duration (mins)",
+        },
+        weight: {
+          type: Number,
+        },
+        reps: {
+          type: Number,
+        },
+        sets: {
+          type: Number,
+        },
+        distance: {
+          type: Number,
+        },
+      },
+    ],
   },
+);
 
-  number: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-
-  email: {
-    type: String,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
-  },
-
-  boolean: Boolean,
-
-  array: Array,
-
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-
-  longstring: {
-    type: String,
-    validate: [({ length }) => length >= 6, "Longstring should be longer."],
-  },
+//Virtual schema needed for computing properties of document
+newSchema.virtual("totalDuration").get(function () {
+  return this.exercises.reduce((total, exercise) => {
+    return total + exercise.duration;
+  }, 0);
 });
 
 const Workout = mongoose.model("workout", newSchema);

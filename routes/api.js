@@ -1,17 +1,16 @@
-const router = express.Router;
 const db = require("../models");
-
-module.exports = function (app) {
-  //Used by /public/api.js to get workouts
-  app.get("/api/workouts", (req, res) => {
-    db.Workout.find({})
-      .then((workout) => {
-        res.json(workout);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  });
+const router = require("express").Router();
+// module.exports = function (app) {
+//   //Used by /public/api.js to get workouts
+//   app.get("/api/workouts", (req, res) => {
+//     db.Workout.find({})
+//       .then((workout) => {
+//         res.json(workout);
+//       })
+//       .catch((err) => {
+//         res.json(err);
+//       });
+//   });
 
   //Adds a new workout
   app.post("/api/workouts", async (req, res) => {
@@ -65,8 +64,7 @@ module.exports = function (app) {
       .catch((err) => {
         res.json(err);
       });
-  });
-};
+  })                                  
 
 router.put("/api/workouts/:id", ({ body, params }, res) => {
   Workout.findByIdAndUpdate(

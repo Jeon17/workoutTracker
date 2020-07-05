@@ -5,9 +5,9 @@ const logger = require("morgan");
 
 const PORT = process.env.PORT || 8080;
 
-const Workout = require("./models/workout.js");
-
 const app = express();
+
+const db = require("./models"); 
 
 app.use(logger("dev"));
 
@@ -22,9 +22,8 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-app.get("/", (req, res) => {
-    res.send(index.html);
-});
+require("./routes/api")(app);
+require("./routes/index")(app);
 
 app.listen(PORT, () => {
   console.log(

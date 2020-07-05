@@ -1,16 +1,16 @@
 const db = require("../models");
-const router = require("express").Router();
-// module.exports = function (app) {
-//   //Used by /public/api.js to get workouts
-//   app.get("/api/workouts", (req, res) => {
-//     db.Workout.find({})
-//       .then((workout) => {
-//         res.json(workout);
-//       })
-//       .catch((err) => {
-//         res.json(err);
-//       });
-//   });
+
+module.exports = function (app) {
+  //Used by /public/api.js to get workouts
+  app.get("/api/workouts", (req, res) => {
+    db.Workout.find({})
+      .then((workout) => {
+        res.json(workout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
 
   //Adds a new workout
   app.post("/api/workouts", async (req, res) => {
@@ -23,7 +23,7 @@ const router = require("express").Router();
   });
 
   //Used by /public/api.js to add an exercise to workout
-  app.put("/api/workouts/:id", ({ body, params }, res) => {
+  app.put("./api/workouts/:id", ({ body, params }, res) => {
     //console.log(body, params)
     const workoutId = params.id;
     //console.log(workoutId);
@@ -64,19 +64,5 @@ const router = require("express").Router();
       .catch((err) => {
         res.json(err);
       });
-  })                                  
-
-router.put("/api/workouts/:id", ({ body, params }, res) => {
-  Workout.findByIdAndUpdate(
-    params.id,
-    { $push: { exercises: body } },
-    // "runValidators" will ensure new exercises meet our schema requirements
-    { new: true, runValidators: true }
-  )
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
+  });
+};

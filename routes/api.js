@@ -1,4 +1,4 @@
-const db = require("../models");
+var db = require("../models");
 
 module.exports = function (app) {
   //Used by /public/api.js to get workouts
@@ -23,7 +23,7 @@ module.exports = function (app) {
   });
 
   //Used by /public/api.js to add an exercise to workout
-  app.put("./api/workouts/:id", ({ body, params }, res) => {
+  app.put("/api/workouts/:id", ({ body, params }, res) => {
     //console.log(body, params)
     const workoutId = params.id;
     //console.log(workoutId);
